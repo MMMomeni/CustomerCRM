@@ -1,4 +1,10 @@
-﻿<h1>Employee List</h1>
+﻿@model I
+
+@{
+	foreach(var c in ViewBag.Countries){
+		<span>c</span>
+	}
+}
 <table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>

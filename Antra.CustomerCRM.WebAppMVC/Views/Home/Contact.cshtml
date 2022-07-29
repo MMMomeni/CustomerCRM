@@ -1,7 +1,11 @@
-﻿
+﻿@*optional*@
+@model Employee
+
 @{
     ViewData["Title"] = "Contact";
 }
 
-<h1>Contact</h1>
+@{
+    <partial name="_Employee" model="Model"/>
+}
 

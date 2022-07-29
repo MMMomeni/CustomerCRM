@@ -1,10 +1,18 @@
-﻿@model I
+﻿@*optional in .NET 6 and later*@
+@model IEnumerable<Employee> 
 
+<h1>Employee List</h1>
 @{
-	foreach(var c in ViewBag.Countries){
-		<span>c</span>
+	<div class="row">
+		@foreach (var e in Model)
+	{
+		<div class="col-3"><partial name="_Employee" model="e"/></div>
+		
 	}
+	</div>
+
 }
+
 <table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
@@ -15,23 +23,15 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>1</td>
-			<td>John</td>
-			<td>Moore</td>
-			<td>IT</td>
-		</tr>
-		<tr>
-			<td>2</td>
-			<td>Chris</td>
-			<td>Rebstock</td>
-			<td>Engineering</td>
-		</tr>
-		<tr>
-			<td>3</td>
-			<td>Alisa</td>
-			<td>Beck</td>
-			<td>Healthcare</td>
-		</tr>
+		@{
+			foreach(var e in Model){
+				<tr>
+					<td>@e.Id</td>
+					<td>@e.FirstName @e.LastName</td>
+					<td>@e.Salary</td>
+					<td>@e.Department</td>
+				</tr>
+			}
+		}
 	</tbody>
 </table>

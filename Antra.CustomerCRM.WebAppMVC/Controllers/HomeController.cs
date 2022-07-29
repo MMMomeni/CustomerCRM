@@ -25,7 +25,14 @@ namespace Antra.CustomerCRM.WebAppMVC.Controllers
 
         public IActionResult Contact()
         {
-            return View();
+            Employee emp = new Employee();
+            emp.Id = 1;
+            emp.FirstName = "Mohammad";
+            emp.LastName = "Momeni";
+            emp.Salary = 70000;
+            emp.Department = "IT";
+
+            return View(emp);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,7 +1,11 @@
+using CustomerCRM.Infrastructure.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSqlServer <CustomerCrmDbContext>(builder.Configuration.GetConnectionString("CustomerCRM"));
 
 var app = builder.Build();
 

@@ -1,0 +1,11 @@
+﻿@model RegionModel
+
+<form asp-action="Edit" asp-controller="Region" method="post">
+    <div class="form-group">
+        <label for="regionName">Region Name</label>
+        <input type="text" name="Name" class="form-control" id="regionName" value="@Model.Name" placeholder="Enter Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+   </div>
+  
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>

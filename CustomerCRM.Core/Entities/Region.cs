@@ -14,5 +14,8 @@ namespace CustomerCRM.Core.Entities
 
         [Column(TypeName="varchar(50)")]
         public string Name { get; set; }
+
+        // Navigational property
+        public ICollection<Customer> Customers { get; set; }
     }
 }

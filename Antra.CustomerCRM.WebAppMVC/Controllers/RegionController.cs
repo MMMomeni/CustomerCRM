@@ -41,11 +41,6 @@ namespace Antra.CustomerCRM.WebAppMVC.Controllers
             return View(model);
 
         }
-        [HttpPost]
-        public IActionResult Demo(RegionModel model)
-        {
-            return View(model);
-        }
 
 
         public async Task<IActionResult> Delete(int regionId)
@@ -59,6 +54,17 @@ namespace Antra.CustomerCRM.WebAppMVC.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             RegionModel model = await regionServiceAsync.GetRegionById(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(RegionModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await regionServiceAsync.UpdateRegion(model);
+                return RedirectToAction("Index");
+            }
             return View(model);
         }
     }

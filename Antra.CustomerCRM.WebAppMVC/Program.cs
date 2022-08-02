@@ -25,11 +25,14 @@ builder.Services.AddDbContext<CustomerCrmDbContext>(
  * Whenever we use an object of RegionRepositoryAsync it is actualy an object of IRegionRepositoryAsync,
  * but how ?
  * because RegionRepositoryAsync has been upcasted to IRegionRepositoryAsync.
-*/
+*/ //Repository injection
 builder.Services.AddScoped<IRegionRepositoryAsync, RegionRepositoryAsync>();
+builder.Services.AddScoped<ICustomerRepositoryAsync, CustomerRepositoryAsync>();
 
+//Service injection
 //We need this for the controller class RegionController
 builder.Services.AddScoped<IRegionServiceAsync, RegionServiceAsync>();
+builder.Services.AddScoped<ICustomerServiceAsync, CustomerServiceAsync>();
 
 
 var app = builder.Build();

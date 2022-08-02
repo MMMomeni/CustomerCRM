@@ -55,10 +55,10 @@ namespace CustomerCRM.Infrastructure.Service
 
         }
 
-        public async Task<RegionModel> GetRegionById(int regionId)
+        public async Task<RegionModel> GetRegionById(int id)
         {
-            Region entity = await regionRepository.GetByIdAsync(regionId);
-            if (entity == null)
+            Region entity = await regionRepository.GetByIdAsync(id);
+            if (entity != null)
             {
                 RegionModel regionModel = new RegionModel() 
                 { 

@@ -1,0 +1,59 @@
+﻿@model CustomerModel
+
+<form asp-action="Create" asp-controller = "Customer" method="post">
+	<div class="row">
+		<div class="col-4 mb-3">
+			<label for="txtName">Name</label>
+			<input type="text" id="txtName" name="Name" class="form-control" placeholder="Enter Customer Name"/>
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="col-4 mb-3">
+			<label for="txtTitle">Title</label>
+			<input type="text" id="txtTitle" name="Title" class="form-control" placeholder="Enter Title"/>
+			<span asp-validation-for="Title" class="text-danger"></span>
+		</div>
+		<div class="col-4 mb-3">
+			<label for="txtCity">City</label>
+			<input type="text" id="txtCity" name="City" class="form-control" placeholder="Enter City"/>
+			<span asp-validation-for="City" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-4 mb-3">
+			<label for="ddlRegion">Select Region</label>
+			<select asp-items="@ViewBag.Regions" class="form-control" id="ddlRegion" name="RegionId">
+				<option>Select Region</option>
+			</select>
+			<span asp-validation-for="RegionId" class="text-danger"></span>
+		</div>
+			<div class="col-4 mb-3">
+			<label for="txtPCode">Postal Code</label>
+			<input type="text" id="txtPCode" name="Postal Code" class="form-control" placeholder="Enter Postal Code"/>
+		</div>
+		<div class="col-4 mb-3">
+			<label for="txtPhoto">Photo</label>
+			<input type="" id="txtPhoto" name="Photo" class="form-control" placeholder="Enter Photo URL"/>
+			<span asp-validation-for="Photo" class="text-danger"></span>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-4 mb-3">
+			<label for="txtCountry">Country Name</label>
+			<input type="text" id="txtCountry" name="Country" class="form-control" placeholder="Enter Country"/>
+			<span asp-validation-for="Country" class="text-danger"></span>
+		</div>
+		<div class="col-4 mb-3">
+			<label for="txtPhone">Phone</label>
+			<input type="tel" id="txtPhone" name="Phone" class="form-control" placeholder="Enter Phone Number"/>
+			<span asp-validation-for="Phone" class="text-danger"></span>
+		</div>
+		<div class="col-4 mb-3">
+			<label for="txtAddress">Address</label>
+			<textarea class="form-control" id="txtAddress" name="Address"></textarea>
+			<span asp-validation-for="Address" class="text-danger"></span>
+		</div>
+
+	</div>
+	<input type="submit" class="btn btn-primary" value="Save"/>
+</form>

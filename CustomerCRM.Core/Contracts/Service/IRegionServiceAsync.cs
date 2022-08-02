@@ -13,6 +13,6 @@ namespace CustomerCRM.Core.Contracts.Service
         Task<IEnumerable<RegionModel>> GetAllRegions();
         Task<int> DeleteRegion(int regionId);
         Task<int> UpdateRegion(RegionModel regionModel);
-        Task<RegionModel> GetRegionById(int regionId);
+        Task<RegionModel> GetRegionById(int id);
     }
 }

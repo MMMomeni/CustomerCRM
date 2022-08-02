@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CustomerResponseModel>
+
+<h1>Customers List</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Title</td>
+			<td>City</td>
+			<td>Phone</td>
+			<td>Region</td>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.Name</td>
+				<td>@item.Title</td>
+				<td>@item.City</td>
+				<td>@item.Phone</td>
+				<td>@item.RegionName</td>
+			</tr>
+		}
+	</tbody>
+</table>

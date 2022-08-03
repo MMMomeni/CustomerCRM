@@ -1,14 +1,16 @@
 ﻿@model IEnumerable<CustomerResponseModel>
 
 <h1>Customers List</h1>
+<a asp-action="Create" asp-controller="Customer">Create a customer profile</a>
 <table class="table">
 	<thead>
 		<tr>
-			<td>Name</td>
-			<td>Title</td>
-			<td>City</td>
-			<td>Phone</td>
-			<td>Region</td>
+			<th>Name</th>
+			<th>Title</th>
+			<th>City</th>
+			<th>Phone</th>
+			<th>Region</th>
+			<th>Options</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,6 +22,9 @@
 				<td>@item.City</td>
 				<td>@item.Phone</td>
 				<td>@item.RegionName</td>
+				 <td>
+					<a class="btn btn-warning" asp-action="Detail" asp-controller="Customer" asp-route-id="@item.Id">Details</a>
+				 </td>
 			</tr>
 		}
 	</tbody>

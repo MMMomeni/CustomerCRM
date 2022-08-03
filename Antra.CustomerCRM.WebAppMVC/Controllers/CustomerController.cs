@@ -15,9 +15,15 @@ namespace Antra.CustomerCRM.WebAppMVC.Controllers
             this.regionServiceAsync = regionServiceAsync;
             this.customerServiceAsync = customerServiceAsync;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string cityname="")
         {
             var result = await customerServiceAsync.GetAllAsync();
+            return View(result);
+        }
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            var result = await customerServiceAsync.GetCustomerByIdAsync(id);
             return View(result);
         }
 
@@ -34,7 +40,7 @@ namespace Antra.CustomerCRM.WebAppMVC.Controllers
             if (ModelState.IsValid)
             {
                 await customerServiceAsync.InsertCustomerAsync(model);
-                RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             return View();
         }

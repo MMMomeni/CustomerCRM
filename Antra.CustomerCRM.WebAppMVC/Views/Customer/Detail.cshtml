@@ -1,0 +1,24 @@
+﻿@model CustomerResponseModel
+
+
+<div class="row">
+    <div class="col-5">
+        <img src="@Model.Photo" width="230px" height="350px"/>
+    </div>
+    <div class="col-7">
+        <table class="table table-bordered table-striped">
+            <tr> 
+                <td>Name</td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr> 
+                <td>Phone</td>
+                <td>@Model.Phone</td>
+            </tr>
+            <tr> 
+                <td>Title</td>
+                <td>@Model.Title</td>
+            </tr>
+        </table>
+    </div>
+</div>

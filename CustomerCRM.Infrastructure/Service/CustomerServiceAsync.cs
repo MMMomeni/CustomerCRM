@@ -68,7 +68,7 @@ namespace CustomerCRM.Infrastructure.Service
                 model.Country = c.Country;
                 model.Phone = c.Phone;
                 model.Photo = c.Photo;
-                var regionmodel = await regionRepositoryAsync.GetByIdAsync(c.Id);
+                var regionmodel = await regionRepositoryAsync.GetByIdAsync(c.RegionId);
                 model.RegionName = regionmodel.Name;
                 
                 return model;

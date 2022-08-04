@@ -15,7 +15,7 @@ namespace CustomerCRM.Infrastructure.Repository
          * DbSet from it's properties (this is also called DI, Dependancy Injection, which means 
          * declare the object outside and initialize in this constructor
          */
-        CustomerCrmDbContext dbContext;
+        private readonly CustomerCrmDbContext dbContext;
         public BaseRepositoryAsync(CustomerCrmDbContext _context)
         {
             dbContext = _context;

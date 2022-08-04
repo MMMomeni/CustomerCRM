@@ -1,8 +1,10 @@
 using CustomerCRM.Core.Contracts.Repository;
 using CustomerCRM.Core.Contracts.Service;
+using CustomerCRM.Core.Entities;
 using CustomerCRM.Infrastructure.Data;
 using CustomerCRM.Infrastructure.Repository;
 using CustomerCRM.Infrastructure.Service;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,12 @@ builder.Services.AddControllersWithViews();
 
 // Basically this line will create a new instance of CustomerCrmDbContext
 builder.Services.AddSqlServer <CustomerCrmDbContext>(builder.Configuration.GetConnectionString("CustomerCRM"));
+
+/* If we did not have "ApplicationUser" class, we could directly use "IdentityUser".
+ * If we had role based properties inside "ApplicationUser" we did not need to add "IdentityRole" here.
+ */
+
+
 //another way is :
 /*
 builder.Services.AddDbContext<CustomerCrmDbContext>(
@@ -47,6 +55,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 
 app.UseRouting();
 

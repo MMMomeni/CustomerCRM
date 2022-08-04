@@ -10,7 +10,7 @@ namespace CustomerCRMAPI.Controllers
     [ApiController]
     public class RegionController : ControllerBase
     {
-        IRegionServiceAsync regionServiceAsync;
+        private readonly IRegionServiceAsync regionServiceAsync;
         public RegionController(IRegionServiceAsync regionServiceAsync)
         {
             this.regionServiceAsync = regionServiceAsync;

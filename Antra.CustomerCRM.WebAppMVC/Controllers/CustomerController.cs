@@ -7,8 +7,8 @@ namespace Antra.CustomerCRM.WebAppMVC.Controllers
 {
     public class CustomerController : Controller
     {
-        IRegionServiceAsync regionServiceAsync;
-        ICustomerServiceAsync customerServiceAsync;
+        private readonly IRegionServiceAsync regionServiceAsync;
+         private readonly ICustomerServiceAsync customerServiceAsync;
 
         public CustomerController(IRegionServiceAsync regionServiceAsync, ICustomerServiceAsync customerServiceAsync)
         {

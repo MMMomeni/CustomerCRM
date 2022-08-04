@@ -12,8 +12,8 @@ namespace CustomerCRM.Infrastructure.Service
 {
     public class CustomerServiceAsync : ICustomerServiceAsync
     {
-        ICustomerRepositoryAsync customerRepositoryAsync;
-        IRegionRepositoryAsync regionRepositoryAsync;
+        private readonly ICustomerRepositoryAsync customerRepositoryAsync;
+        private readonly IRegionRepositoryAsync regionRepositoryAsync;
         public CustomerServiceAsync(ICustomerRepositoryAsync _customerRepositoryAsync, IRegionRepositoryAsync _regionRepositoryAsync)
         {
             customerRepositoryAsync = _customerRepositoryAsync;

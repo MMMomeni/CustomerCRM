@@ -12,7 +12,7 @@ namespace CustomerCRM.Infrastructure.Service
 {
     public class RegionServiceAsync : IRegionServiceAsync
     {
-        IRegionRepositoryAsync regionRepository;
+        private readonly IRegionRepositoryAsync regionRepository;
         public RegionServiceAsync(IRegionRepositoryAsync _regionRepository)
         {
             regionRepository = _regionRepository;

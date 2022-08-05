@@ -16,10 +16,13 @@ namespace CustomerCRM.Infrastructure.Repository
          * "UserManager" will handle user login and password.
          * We should create our fields private readonly for security purposes (everywhere).
          */
-
+        // for sign up
         private readonly UserManager<ApplicationUser> userManager;
-        public AccountRepositoryAsync(UserManager<ApplicationUser> m)
+        // for sign in
+        private readonly SignInManager<ApplicationUser> signInManager;
+        public AccountRepositoryAsync(UserManager<ApplicationUser> m, SignInManager<ApplicationUser> s)
         {
+            signInManager = s;
             userManager = m;
         }
         public Task<IdentityResult> SignUpAsync(SignUpModel user)
@@ -36,6 +39,11 @@ namespace CustomerCRM.Infrastructure.Repository
             return userManager.CreateAsync(appUser, user.Password);
             
             //return Task.FromResult(IdentityResult.Success);
+        }
+
+        public Task<SignInResult> LoginAsync(SignInModel model)
+        {
+            return  signInManager.PasswordSignInAsync(model.Email, model.Password, model.Remember, false);
         }
     }
 }

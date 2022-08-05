@@ -2,6 +2,9 @@
 using CustomerCRM.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace CustomerCRMAPI.Controllers
@@ -11,9 +14,13 @@ namespace CustomerCRMAPI.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountServiceAsync accountServiceAsync;
-        public AccountController(IAccountServiceAsync accountServiceAsync)
+
+        //we have to inject this to be able to configure in Login
+        private readonly IConfiguration configuration;
+        public AccountController(IAccountServiceAsync accountServiceAsync, IConfiguration config)
         {
             this.accountServiceAsync = accountServiceAsync;
+            this.configuration = config;
         }
 
         [HttpPost]
@@ -37,6 +44,33 @@ namespace CustomerCRMAPI.Controllers
             }
             return BadRequest(sb.ToString());
 
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(SignInModel model)
+        {
+            var result = await accountServiceAsync.LoginAsync(model); 
+            if (!result.Succeeded)
+                return Unauthorized(new {Message = "Invalid Username and Password"});
+
+            // list of claims
+            var authClaims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, model.Email),
+                new Claim(ClaimTypes.Country, "USA"),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+
+            var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
+            var token = new JwtSecurityToken(
+                issuer: configuration["JWT:ValidIssuer"]),
+                audience:configuration["JWT:ValidAudience"],
+                expires:DateTime.Now.AddDays(1),
+                claims:authClaims,
+                signingCredentials:new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature)
+                );
+            var t = new Jwt
+            return Ok();
         }
     }
 }

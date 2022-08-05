@@ -18,9 +18,15 @@ namespace CustomerCRM.Infrastructure.Service
             this.accountRepositoryAsync = accountRepositoryAsync;
         }
 
+
         public Task<IdentityResult> SignUpAsync(SignUpModel model)
         {
             return accountRepositoryAsync.SignUpAsync(model);
+        }
+
+        public Task<SignInResult> LoginAsync(SignInModel model)
+        {
+            return accountRepositoryAsync.LoginAsync(model);
         }
     }
 }

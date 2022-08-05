@@ -4,7 +4,10 @@ using CustomerCRM.Core.Entities;
 using CustomerCRM.Infrastructure.Data;
 using CustomerCRM.Infrastructure.Repository;
 using CustomerCRM.Infrastructure.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +47,31 @@ builder.Services.AddScoped<IRegionServiceAsync, RegionServiceAsync>();
 builder.Services.AddScoped<ICustomerServiceAsync, CustomerServiceAsync>();
 builder.Services.AddScoped<IAccountServiceAsync, AccountServiceAsync>();
 
+/*These lines sets up the authentication process and configures the options
+  also uses token info appsetting (JWT)*/
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{ //Should the token be saved after creation ?
+    options.SaveToken = true;
+    //for now false
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        // Reading Audience from appsetting
+        ValidAudience = builder.Configuration["JWT:ValidAudience"],
+        // Reading Issuer from appsetting
+        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+        // Setting the Secret from appsetting and encoding it
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+    };
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,9 +84,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors();
-
+// For login and log off
+app.UseAuthentication();
 app.UseAuthorization();
 
+// Map http requests with the controllers
 app.MapControllers();
 
 app.Run();

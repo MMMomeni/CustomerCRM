@@ -1,6 +1,6 @@
 ﻿using CustomerCRM.Core.Contracts.Service;
 using CustomerCRM.Core.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +8,7 @@ namespace CustomerCRMAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RegionController : ControllerBase
     {
         private readonly IRegionServiceAsync regionServiceAsync;

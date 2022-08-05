@@ -13,7 +13,9 @@ namespace CustomerCRM.Core.Models
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        public bool Remember { get; set; }
+        public bool Remember { get; set; } = false;
+
+        // LockOutOnFailure
         //public bool MyProperty { get; set; }
         
     }

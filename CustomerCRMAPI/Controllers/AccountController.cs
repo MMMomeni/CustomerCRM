@@ -53,7 +53,11 @@ namespace CustomerCRMAPI.Controllers
             if (!result.Succeeded)
                 return Unauthorized(new {Message = "Invalid Username and Password"});
 
-            // list of claims
+
+            /* list of claims
+             * We can validate tokens with the below lines
+             * Jti is a predefind claim that allow us to give Guid (unique Identifier)
+             */
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, model.Email),
@@ -63,14 +67,16 @@ namespace CustomerCRMAPI.Controllers
 
             var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
             var token = new JwtSecurityToken(
-                issuer: configuration["JWT:ValidIssuer"]),
+                issuer: configuration["JWT:ValidIssuer"],
                 audience:configuration["JWT:ValidAudience"],
                 expires:DateTime.Now.AddDays(1),
                 claims:authClaims,
                 signingCredentials:new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature)
                 );
-            var t = new Jwt
-            return Ok();
+            // Now we need to use token handler that returns the token in the output.
+            var t = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return Ok(new {jwt = t});
         }
     }
 }
